@@ -3,6 +3,7 @@ package com.example.tusbookings.data.local
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.tusbookings.model.Booking
 import com.example.tusbookings.model.Category
 import com.example.tusbookings.model.Equipment
 import kotlinx.coroutines.flow.Flow
@@ -30,4 +31,16 @@ fun observeCategories(): Flow<List<Category>>
 
     @Insert
     suspend fun insertEquipment(equipment: Equipment): Long
+
+    @Query("DELETE FROM equipment WHERE id = :equipmentId")
+    suspend fun deleteEquipment(equipmentId: Int)
+
+    @Query("SELECT * FROM bookings ORDER BY id")
+    fun observeBookings(): Flow<List<Booking>>
+
+    @Insert
+    suspend fun insertBooking(booking: Booking): Long
+
+    @Query("DELETE FROM bookings WHERE id = :bookingId")
+    suspend fun deleteBooking(bookingId: Int)
 }

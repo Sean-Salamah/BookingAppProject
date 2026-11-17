@@ -8,20 +8,18 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "bookings",
     foreignKeys = [ForeignKey(
-        entity = Category::class,
+        entity = Equipment::class,
         parentColumns = ["id"],
-        childColumns = ["categoryId"],
-        onDelete = ForeignKey.RESTRICT
+        childColumns = ["equipmentId"],
+        onDelete = ForeignKey.CASCADE
     )],
-    indices = [Index(value = ["categoryId"])]
+    indices = [Index(value = ["equipmentId"])]
 )
 data class Booking(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val title: String,
-    val categoryId: Int,
-    val date: String,
-    val location: String,
-    val description: String,
-    val priceEuro: Int,
-    val availablePlaces: Int
+    val equipmentId: Int,
+    val studentName: String,
+    // Dates are saved as milliseconds, which is what the calendar picker gives back
+    val startDate: Long,
+    val endDate: Long
 )
